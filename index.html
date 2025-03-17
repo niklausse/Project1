@@ -1,0 +1,92 @@
+<!-- index.html -->
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>CelestiCode Writing Assistant</title>
+    <style>
+        body {
+            font-family: Arial, sans-serif;
+            text-align: center;
+            padding-top: 50px;
+            background-color: #0a2540;
+            color: white;
+        }
+
+        textarea {
+            width: 80%;
+            height: 150px;
+            margin-top: 20px;
+            padding: 10px;
+            border-radius: 10px;
+            border: none;
+        }
+
+        button {
+            padding: 10px 20px;
+            margin-top: 15px;
+            cursor: pointer;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+        }
+
+        #output {
+            margin-top: 30px;
+            text-align: left;
+            padding: 20px;
+            background-color: #153b64;
+            border-radius: 10px;
+            width: 80%;
+            margin-left: auto;
+            margin-right: auto;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>CelestiCode, Your Interactive Writing Assistant</h1>
+    <button onclick="startListening()">🎤 Start Speaking</button>
+    <button onclick="generateText()">Generate Text</button>
+    <button onclick="readText()">Read Text</button>
+    <textarea id="prompt" placeholder="Or type your writing prompt here..."></textarea>
+    <div id="output"></div>
+
+    <script>
+        const output = document.getElementById('output');
+
+        function generateText() {
+            const prompt = document.getElementById('prompt').value;
+            output.innerHTML = "Generating response for: " + prompt;
+            // Placeholder for API call
+            setTimeout(() => {
+                output.textContent = 'CelestiCode says: ' + prompt;
+            }, 1000);
+        }
+
+        function startListening() {
+            const recognition = new (window.SpeechRecognition || window.webkitSpeechRecognition)();
+            recognition.lang = 'en-US';
+            recognition.interimResults = false;
+
+            recognition.onresult = function (event) {
+                const speechResult = event.results[0][0].transcript;
+                document.getElementById('prompt').value = speech;
+                generateText();
+            };
+
+            recognition.start();
+        }
+
+        function readText() {
+            const text = output.textContent;
+            const speech = new SpeechSynthesisUtterance(text = speech);
+            window.speechSynthesis.speak(speech);
+        }
+    </script>
+</body>
+
+</html>
